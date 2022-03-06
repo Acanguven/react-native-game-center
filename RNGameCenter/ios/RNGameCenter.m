@@ -173,7 +173,7 @@ RCT_EXPORT_METHOD(getPlayerImage:(RCTPromiseResolveBlock)resolve
                                                          NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:
-                      @"user.jpg" ];
+                      @"user.png" ];
 
     // Check if the user photo is cached
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path];
@@ -188,7 +188,7 @@ RCT_EXPORT_METHOD(getPlayerImage:(RCTPromiseResolveBlock)resolve
         if (error!=nil)return reject(@"Error", @"Error fetching player image",error);
 
         if (photo != nil){
-          NSData* data = UIImageJPEGRepresentation(photo, 0.8);
+          NSData* data = UIImagePNGRepresentation(photo);
           [data writeToFile:path atomically:YES];
           NSDictionary *json = @{@"image":path};
           resolve(json);
